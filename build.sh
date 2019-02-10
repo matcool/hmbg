@@ -1,2 +1,1 @@
-cd src
-moonc -t ../com *.moon && love ../com
+cd src && moonc -t ../com *.moon && love ../com
