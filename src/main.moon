@@ -1,12 +1,10 @@
-class State
-	new: =>
-	update: =>
-	draw: =>
-	keyPressed: =>
+GameState = require "gamestate"
 
 love.load = ->
+	export state = GameState!
 
 love.update = ->
+	state\update!
 
 love.draw = ->
-	love.graphics.print "test"
+	state\draw!
