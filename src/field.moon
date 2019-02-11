@@ -2,13 +2,14 @@ State = require "state"
 Piece = require "piece"
 
 class Field extends State
-	new: (rotationSystem) =>
+	new: (parent) =>
+		@parent = parent
 		@width = 10
 		@height = 20
 		@hidden = 2
 		@grid = [nil for _ = 1, @width * (@height + @hidden)]
 		@cellSize = 32
-		@active = Piece "T", rotationSystem, self
+		@active = Piece self, "T"
 		-- Center piece position, rounded to left
 		@active.x = (math.floor @width / 2) - @active.size
 		-- Put one row of piece on lower hidden row
@@ -26,10 +27,6 @@ class Field extends State
 		love.graphics.setCanvas @canvas
 		love.graphics.clear!
 
-		-- Draw grid outline
-		love.graphics.setColor 1, 1, 1
-		love.graphics.rectangle "line", 0, 0, @canvas\getWidth!, @canvas\getHeight!
-
 		-- Draw grid
 		for x = 1, @width
 			-- Draw rows below hidden
@@ -44,6 +41,12 @@ class Field extends State
 				if @getCell x, y
 					love.graphics.rectangle "fill", (x - 1) * @cellSize,
 						(y - 1 - @hidden) * @cellSize, @cellSize, @cellSize
+
+		-- Draw grid outline
+		love.graphics.setLineWidth 3
+		love.graphics.setColor .35, .35, .35
+		love.graphics.rectangle "line", 0, 0, @canvas\getWidth!, @canvas\getHeight!
+		love.graphics.setLineWidth 1
 
 		love.graphics.setCanvas!
 
