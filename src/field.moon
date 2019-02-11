@@ -1,24 +1,52 @@
 State = require "state"
+Piece = require "piece"
 
 class Field extends State
-	new: =>
+	new: (rotationSystem) =>
 		@width = 10
 		@height = 20
-		@grid = [nil for _ = 1, @width * @height]
+		@hidden = 2
+		@grid = [nil for _ = 1, @width * (@height + @hidden)]
 		@cellSize = 32
+		@active = Piece "T", rotationSystem, self
+		-- Center piece position, rounded to left
+		@active.x = (math.floor @width / 2) - @active.size
+		-- Put one row of piece on lower hidden row
+		@active.y = @hidden
 		@canvas = love.graphics.newCanvas @width * @cellSize, @height * @cellSize
 
 	getCell: (x, y) => @grid[((y - 1) * @width + (x - 1)) + 1]
 
 	setCell: (x, y, newCell) => @grid[((y - 1) * @width + (x - 1)) + 1] = newCell
 
+	update: (dt) =>
+		@active\update dt
+
 	draw: =>
+		love.graphics.setCanvas @canvas
+		love.graphics.clear!
+
+		-- Draw grid outline
+		love.graphics.setColor 1, 1, 1
+		love.graphics.rectangle "line", 0, 0, @canvas\getWidth!, @canvas\getHeight!
+
+		-- Draw grid
 		for x = 1, @width
-			for y = 1, @height
-				love.graphics.setCanvas @canvas
+			-- Draw rows below hidden
+			for y = 1 + @hidden, @height + @hidden
+				-- Draw grid
+				love.graphics.setColor .25, .25, .25
+				love.graphics.rectangle "line", (x - 1) * @cellSize,
+					(y - 1 - @hidden) * @cellSize, @cellSize, @cellSize
+
+				-- Draw blocks
+				love.graphics.setColor 1, 1, 1
 				if @getCell x, y
-					love.graphics.rectangle "fill", (x - 1) * @cellSize, (y - 1) * @cellSize,
-						@cellSize, @cellSize
-				love.graphics.setCanvas!
+					love.graphics.rectangle "fill", (x - 1) * @cellSize,
+						(y - 1 - @hidden) * @cellSize, @cellSize, @cellSize
+
+		love.graphics.setCanvas!
+
+		@active\draw!
 
 return Field

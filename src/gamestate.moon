@@ -3,12 +3,16 @@ Field = require "field"
 
 class GameState extends State
 	new: =>
-		@field = Field!
+		@rotationSystem = "SRS"
+		@field = Field @rotationSystem
+
+	update: (dt) =>
+		@field\update dt
 
 	draw: =>
 		@field\draw!
 		love.graphics.draw @field.canvas,
-			love.graphics.getWidth! / 2 - @field.cellSize * @field.width / 2,
-			love.graphics.getHeight! / 2 - @field.cellSize * @field.height /2
+			love.graphics.getWidth! / 2 - @field.canvas\getWidth! / 2,
+			love.graphics.getHeight! / 2 - @field.canvas\getHeight! /2
 
 return GameState
