@@ -1,1 +1,1 @@
-cd src && moonc -t ../com *.moon && love ../com
+rm com/*.lua && cd src && moonc -t ../com . && love ../com
