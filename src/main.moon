@@ -19,6 +19,9 @@ love.load = ->
 
 	Input\bind "left", "game_left"
 	Input\bind "right", "game_right"
+	Input\bind "down", "game_softdrop"
+	Input\bind "z", "game_rotateleft"
+	Input\bind "x", "game_rotateright"
 
 	export state = GameState!
 
