@@ -1,5 +1,5 @@
 class Piece
-	new: (parent, type, x=0, y=0) =>
+	new: (parent, type, x=1, y=1) =>
 		@parent = parent
 		@type = type
 		@x = x
@@ -21,11 +21,31 @@ class Piece
 
 		@shape = newShape
 
+	move: (dir) =>
+		if dir == "left" and not @collides -1
+			@x -= 1
+			return true
+		elseif dir == "right" and not @collides 1
+			@x += 1
+			return true
+
+		return false
+
+	collides: (off) =>
+		for x = @x + off, @x + off + @size - 1
+			for y = @y, @y + @size - 1
+				xOff, yOff = x - @x + 1, y - @y + 1
+				if @shape[yOff][xOff] == 1
+					-- If is outside field
+					if x <= 1 or x >= @parent.width
+						return true
+		return false
+
 	update: (dt) =>
 		if Input\pressed "game_left"
-			@x -= 1
+			@move "left"
 		if Input\pressed "game_right"
-			@x += 1
+			@move "right"
 		if Input\pressed "game_softdrop"
 			@y += 1
 		if Input\pressed "game_rotateleft"
