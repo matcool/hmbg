@@ -19,26 +19,40 @@ class Piece
 					elseif dir == "right"
 						newShape[x][@size + 1 - y] = 1
 
+		oldShape = @shape
 		@shape = newShape
 
+		if @collides!
+			@shape = oldShape
+
 	move: (dir) =>
-		if dir == "left" and not @collides -1
-			@x -= 1
-			return true
-		elseif dir == "right" and not @collides 1
-			@x += 1
+		xOff, yOff = switch dir
+			when "left" then -1, 0
+			when "right" then 1, 0
+			when "down" then 0, 1
+
+		unless @collides dir
+			@x += xOff
+			@y += yOff
 			return true
 
 		return false
 
-	collides: (off) =>
-		for x = @x + off, @x + off + @size - 1
-			for y = @y, @y + @size - 1
-				xOff, yOff = x - @x + 1, y - @y + 1
+	collides: (dir) =>
+		colXOff, colYOff = switch dir
+			when "left" then -1, 0
+			when "right" then 1, 0
+			when "down" then 0, 1
+			else 0, 0
+
+		for x = @x + colXOff, @x + colXOff + @size - 1
+			for y = @y + colYOff, @y + colYOff + @size - 1
+				xOff, yOff = x - @x + (-colXOff) + 1, y - @y + (-colYOff) + 1
 				if @shape[yOff][xOff] == 1
 					-- If is outside field
-					if x <= 1 or x >= @parent.width
+					if x < 1 or x > @parent.width or y < 1 or y > @parent.height + @parent.hidden
 						return true
+
 		return false
 
 	update: (dt) =>
@@ -47,7 +61,7 @@ class Piece
 		if Input\pressed "game_right"
 			@move "right"
 		if Input\pressed "game_softdrop"
-			@y += 1
+			@move "down"
 		if Input\pressed "game_rotateleft"
 			@rotate "left"
 		if Input\pressed "game_rotateright"
