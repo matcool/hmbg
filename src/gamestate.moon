@@ -5,6 +5,9 @@ class GameState extends State
 	new: =>
 		@rotationSystem = "SRS"
 		@colors = "SRS"
+		@das = 80
+		@arr = 0
+		@arrTimer = @arr / 1000
 		@field = Field self
 
 	update: (dt) =>
