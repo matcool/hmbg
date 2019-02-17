@@ -49,7 +49,7 @@ class Input
 
 	down: (action) => @actions[action].down
 
-	held: (action) => @actions[action].heldFor
+	heldFor: (action) => @actions[action].heldFor
 
 	hasHeld: (action, duration) => @actions[action].heldFor >= duration
 
