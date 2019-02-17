@@ -69,7 +69,7 @@ do
     down = function(self, action)
       return self.actions[action].down
     end,
-    held = function(self, action)
+    heldFor = function(self, action)
       return self.actions[action].heldFor
     end,
     hasHeld = function(self, action, duration)
