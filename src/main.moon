@@ -27,7 +27,7 @@ love.load = ->
 
 love.update = (dt) ->
 	Input\update dt
-	state\update!
+	state\update dt
 
 love.draw = ->
 	state\draw!
