@@ -56,6 +56,8 @@ class Piece
 		return false
 
 	update: (dt) =>
+		moved = false
+
 		if Input\hasHeld "game_left", @parent.parent.das / 1000
 			if @parent.parent.arr == 0
 				while @move "left" do nil
@@ -64,11 +66,15 @@ class Piece
 				if @parent.parent.arrTimer <= 0
 					@move "left"
 					@parent.parent.arrTimer = @parent.parent.arr / 1000
+
+			moved = true
 		elseif Input\pressed "game_left"
 			@move "left"
 			@parent.parent.arrTimer = @parent.parent.arr / 1000
 
-		if Input\hasHeld "game_right", @parent.parent.das / 1000
+			moved = true
+
+		if (Input\hasHeld "game_right", @parent.parent.das / 1000) and not moved
 			if @parent.parent.arr == 0
 				while @move "right" do nil
 			else
@@ -80,6 +86,8 @@ class Piece
 			@move "right"
 			@parent.parent.arrTimer = @parent.parent.arr / 1000
 
+		if Input\pressed "game_harddrop"
+			while @move "down" do nil
 		if Input\pressed "game_softdrop"
 			@move "down"
 		if Input\pressed "game_rotateleft"
