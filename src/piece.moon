@@ -6,6 +6,7 @@ class Piece
 		@y = y
 		@shape = Shapes[parent.parent.rotationSystem][type]
 		@size = #@shape
+		@hasSet = false
 
 	rotate: (dir) =>
 		-- Space between the square brackets because [[ is multiline comment in Lua
@@ -52,8 +53,18 @@ class Piece
 					-- If is outside field
 					if x < 1 or x > @parent.width or y < 1 or y > @parent.height + @parent.hidden
 						return true
+					-- If coliding with grid
+					if @parent\getCell x, y
+						return true
 
 		return false
+
+	set: =>
+		for x = 1, @size
+			for y = 1, @size
+				if @shape[y][x] == 1
+					@parent\setCell @x+x-1, @y+y-1, true
+		@hasSet = true
 
 	update: (dt) =>
 		moved = false
@@ -94,6 +105,9 @@ class Piece
 			@rotate "left"
 		if Input\pressed "game_rotateright"
 			@rotate "right"
+
+		if @collides "down"
+			@set!
 
 	draw: =>
 		love.graphics.setCanvas @parent.canvas

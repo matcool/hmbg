@@ -22,6 +22,10 @@ class Field extends State
 
 	update: (dt) =>
 		@active\update dt
+		if @active.hasSet
+			@active = Piece self, "T"
+			@active.x = (math.floor @width / 2) - @active.size
+			@active.y = @hidden
 
 	draw: =>
 		love.graphics.setCanvas @canvas
