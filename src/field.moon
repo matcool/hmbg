@@ -1,5 +1,6 @@
 State = require "state"
 Piece = require "piece"
+Generator = require "generator"
 
 class Field extends State
 	new: (parent) =>
@@ -9,7 +10,8 @@ class Field extends State
 		@hidden = 2
 		@grid = [nil for _ = 1, @width * (@height + @hidden)]
 		@cellSize = 32
-		@active = Piece self, "T"
+		@generator = Generator!
+		@active = Piece self, @generator\getUpcoming(true)
 		-- Center piece position, rounded to left
 		@active.x = (math.floor @width / 2) - @active.size
 		-- Put one row of piece on lower hidden row
@@ -48,7 +50,7 @@ class Field extends State
 		@active\update dt
 		if @active.hasSet
 			@clearLines!
-			@active = Piece self, "T"
+			@active = Piece self, @generator\getUpcoming(true)
 			@active.x = (math.floor @width / 2) - @active.size
 			@active.y = @hidden
 
