@@ -53,7 +53,7 @@ class Piece
 					-- If is outside field
 					if x < 1 or x > @parent.width or y < 1 or y > @parent.height + @parent.hidden
 						return true
-					-- If coliding with grid
+					-- If colliding with grid
 					if @parent\getCell x, y
 						return true
 
