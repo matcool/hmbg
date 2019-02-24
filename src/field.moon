@@ -20,9 +20,34 @@ class Field extends State
 
 	setCell: (x, y, newCell) => @grid[((y - 1) * @width + (x - 1)) + 1] = newCell
 
+	clearLines: =>
+		for y = 1, @height + @hidden
+			row = [1 for x = 1, @width when @getCell x, y]
+			if #row == @width
+				@move "down", y
+
+	move: (dir, yOff=@height+@hidden) =>
+		default = nil
+		if dir == "up"
+			for y = 1, yOff
+				for x = 1, @width
+					if y == @height + @hidden
+						@setCell x, y, default
+					else
+						@setCell x, y, (@getCell x, y+1)
+		elseif dir == "down"
+			for y = yOff, 1, -1
+				for x = 1, @width
+					if y == 1
+						@setCell x, y, default
+					else
+						@setCell x, y, (@getCell x, y-1)
+
+
 	update: (dt) =>
 		@active\update dt
 		if @active.hasSet
+			@clearLines!
 			@active = Piece self, "T"
 			@active.x = (math.floor @width / 2) - @active.size
 			@active.y = @hidden
