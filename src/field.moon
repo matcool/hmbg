@@ -22,6 +22,10 @@ class Field extends State
 
 	update: (dt) =>
 		@active\update dt
+		if @active.hasSet
+			@active = Piece self, "T"
+			@active.x = (math.floor @width / 2) - @active.size
+			@active.y = @hidden
 
 	draw: =>
 		love.graphics.setCanvas @canvas
@@ -37,8 +41,9 @@ class Field extends State
 					(y - 1 - @hidden) * @cellSize, @cellSize, @cellSize
 
 				-- Draw blocks
-				love.graphics.setColor 1, 1, 1
-				if @getCell x, y
+				cell = @getCell x, y
+				if cell
+					love.graphics.setColor Colors[@parent.colors][cell]
 					love.graphics.rectangle "fill", (x - 1) * @cellSize,
 						(y - 1 - @hidden) * @cellSize, @cellSize, @cellSize
 
