@@ -41,8 +41,9 @@ class Field extends State
 					(y - 1 - @hidden) * @cellSize, @cellSize, @cellSize
 
 				-- Draw blocks
-				love.graphics.setColor 1, 1, 1
-				if @getCell x, y
+				cell = @getCell x, y
+				if cell
+					love.graphics.setColor Colors[@parent.colors][cell]
 					love.graphics.rectangle "fill", (x - 1) * @cellSize,
 						(y - 1 - @hidden) * @cellSize, @cellSize, @cellSize
 
