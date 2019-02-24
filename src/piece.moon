@@ -63,7 +63,7 @@ class Piece
 		for x = 1, @size
 			for y = 1, @size
 				if @shape[y][x] == 1
-					@parent\setCell @x+x-1, @y+y-1, @type
+					@parent\setCell @x + x - 1, @y + y - 1, @type
 		@hasSet = true
 
 	update: (dt) =>
