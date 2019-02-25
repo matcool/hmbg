@@ -1,1 +1,1 @@
-cd src && moonc -t ../com . && love ../com && cd ..
+cd src && moonc -t ../com . && cd .. && lovec com
