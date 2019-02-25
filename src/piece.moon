@@ -7,6 +7,8 @@ class Piece
 		@shape = Shapes[parent.parent.rotationSystem][type]
 		@size = #@shape
 		@hasSet = false
+		@setTimer = 0
+		@setAfter = 1
 
 	rotate: (dir) =>
 		-- Space between the square brackets because [[ is multiline comment in Lua
@@ -99,6 +101,7 @@ class Piece
 
 		if Input\pressed "game_harddrop"
 			while @move "down" do nil
+			@setTimer = @setAfter
 		if Input\pressed "game_softdrop"
 			@move "down"
 		if Input\pressed "game_rotateleft"
@@ -107,7 +110,10 @@ class Piece
 			@rotate "right"
 
 		if @collides "down"
-			@set!
+			if @setTimer >= @setAfter
+				@set!
+			@setTimer += dt
+
 
 	draw: =>
 		love.graphics.setCanvas @parent.canvas
