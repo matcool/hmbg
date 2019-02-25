@@ -13,7 +13,7 @@ class Field extends State
 		@generator = Generator!
 		@active = Piece self, @generator\getUpcoming(true)
 		-- Center piece position, rounded to left
-		@active.x = (math.floor @width / 2) - @active.size
+		@active.x = (math.floor @width / 2) - math.floor @active.size / 2
 		-- Put one row of piece on lower hidden row
 		@active.y = @hidden
 		@canvas = love.graphics.newCanvas @width * @cellSize, @height * @cellSize
@@ -51,7 +51,7 @@ class Field extends State
 		if @active.hasSet
 			@clearLines!
 			@active = Piece self, @generator\getUpcoming(true)
-			@active.x = (math.floor @width / 2) - @active.size
+			@active.x = (math.floor @width / 2) - math.floor @active.size / 2
 			@active.y = @hidden
 
 	draw: =>
