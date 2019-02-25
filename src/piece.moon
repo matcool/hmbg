@@ -8,7 +8,7 @@ class Piece
 		@size = #@shape
 		@hasSet = false
 		@setTimer = 0
-		@setAfter = 1
+		@fallTimer = 0
 
 	rotate: (dir) =>
 		-- Space between the square brackets because [[ is multiline comment in Lua
@@ -101,7 +101,7 @@ class Piece
 
 		if Input\pressed "game_harddrop"
 			while @move "down" do nil
-			@setTimer = @setAfter
+			@setTimer = @parent.parent.setAfter
 		if Input\pressed "game_softdrop"
 			@move "down"
 		if Input\pressed "game_rotateleft"
@@ -110,9 +110,15 @@ class Piece
 			@rotate "right"
 
 		if @collides "down"
-			if @setTimer >= @setAfter
+			@fallTimer = 0
+			if @setTimer >= @parent.parent.setAfter
 				@set!
 			@setTimer += dt
+		else
+			if @fallTimer >= @parent.parent.fallAfter
+				@move "down"
+				@fallTimer = 0
+			@fallTimer += dt
 
 
 	draw: =>
