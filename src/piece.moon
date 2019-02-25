@@ -123,19 +123,20 @@ class Piece
 
 	draw: =>
 		love.graphics.setCanvas @parent.canvas
-		love.graphics.setColor Colors[@parent.parent.colors][@type]
 
 		for x = 1, @size
 			for y = 1, @size
 				if @shape[y][x] == 1
 					-- Draw ghost
+					love.graphics.setColor [i/2 for _, i in pairs Colors[@parent.parent.colors][@type]]
 					oldY = @y
 					while @move "down" do nil
 					love.graphics.rectangle "fill", (@x + x - 2) * @parent.cellSize,
 						(@y + y - 2 - @parent.hidden) * @parent.cellSize, @parent.cellSize,
 						@parent.cellSize
 					@y = oldY
-					
+
+					love.graphics.setColor Colors[@parent.parent.colors][@type]
 					love.graphics.rectangle "fill", (@x + x - 2) * @parent.cellSize,
 						(@y + y - 2 - @parent.hidden) * @parent.cellSize, @parent.cellSize,
 						@parent.cellSize
