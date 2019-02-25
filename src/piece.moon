@@ -128,6 +128,14 @@ class Piece
 		for x = 1, @size
 			for y = 1, @size
 				if @shape[y][x] == 1
+					-- Draw ghost
+					oldY = @y
+					while @move "down" do nil
+					love.graphics.rectangle "fill", (@x + x - 2) * @parent.cellSize,
+						(@y + y - 2 - @parent.hidden) * @parent.cellSize, @parent.cellSize,
+						@parent.cellSize
+					@y = oldY
+					
 					love.graphics.rectangle "fill", (@x + x - 2) * @parent.cellSize,
 						(@y + y - 2 - @parent.hidden) * @parent.cellSize, @parent.cellSize,
 						@parent.cellSize
