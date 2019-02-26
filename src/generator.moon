@@ -5,13 +5,13 @@ class Generator
         @upcoming = {}
 
     genBag: =>
-        @bag = Utils.copyTable(Utils.shuffle @pieces)
+        @bag = Utils.copyTable Utils.shuffle @pieces
 
     getUpcoming: (remove=false, n=1) =>
         while #@upcoming < n
             if #@bag == 0
                 @genBag!
-            table.insert @upcoming, (table.remove @bag, 1)
+            table.insert @upcoming, table.remove(@bag, 1)
         if n == 1
             if remove
                 return table.remove @upcoming, 1

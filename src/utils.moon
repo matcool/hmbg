@@ -12,6 +12,6 @@ utils.shuffle = (table) ->
     return table
 
 utils.copyTable = (table) ->
-    return [v for k, v in pairs(table)]
+    return [v for k, v in pairs table]
 
 return utils

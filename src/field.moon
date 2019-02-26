@@ -11,7 +11,7 @@ class Field extends State
 		@grid = [nil for _ = 1, @width * (@height + @hidden)]
 		@cellSize = 32
 		@generator = Generator!
-		@active = Piece self, @generator\getUpcoming(true)
+		@active = Piece self, @generator\getUpcoming true
 		-- Center piece position, rounded to left
 		@active.x = (math.floor @width / 2) - @active.size
 		-- Put one row of piece on lower hidden row
@@ -50,7 +50,7 @@ class Field extends State
 		@active\update dt
 		if @active.hasSet
 			@clearLines!
-			@active = Piece self, @generator\getUpcoming(true)
+			@active = Piece self, @generator\getUpcoming true
 			@active.x = (math.floor @width / 2) - @active.size
 			@active.y = @hidden
 
