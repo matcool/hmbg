@@ -26,7 +26,7 @@ class Field extends State
 			if #row == @width
 				@move "down", y
 
-	move: (dir, yOff=@height+@hidden) =>
+	move: (dir, yOff=@height + @hidden) =>
 		default = nil
 		if dir == "up"
 			for y = 1, yOff
