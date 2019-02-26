@@ -9,7 +9,7 @@ class GameState extends State
 		@arr = 0
 		@arrTimer = @arr / 1000
 		@setAfter = 1
-		@fallAfter = 0.5
+		@fallAfter = 1
 		@field = Field self
 
 	update: (dt) =>

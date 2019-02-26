@@ -115,10 +115,13 @@ class Piece
 				@set!
 			@setTimer += dt
 		else
-			if @fallTimer >= @parent.parent.fallAfter
-				@move "down"
-				@fallTimer = 0
-			@fallTimer += dt
+			if @parent.parent.fallAfter < 0
+				while @move "down" do nil
+			else
+				if @fallTimer >= @parent.parent.fallAfter
+					@move "down"
+					@fallTimer = 0
+				@fallTimer += dt
 
 
 	draw: =>
