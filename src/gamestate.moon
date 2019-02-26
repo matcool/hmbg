@@ -23,4 +23,18 @@ class GameState extends State
 			love.graphics.getWidth! / 2 - @field.canvas\getWidth! / 2,
 			love.graphics.getHeight! / 2 - @field.canvas\getHeight! /2
 
+		-- Draw upcoming pieces
+		yOff = 0
+		for _, p in pairs @field.generator\getUpcoming(false, 5)
+			love.graphics.setColor Colors[@colors][p]
+			shape = Shapes[@rotationSystem][p]
+			xOff = love.graphics.getWidth! / 2 + @field.canvas\getWidth!
+			for y, row in ipairs shape
+				for x, cell in ipairs row
+					if cell == 1
+						love.graphics.rectangle "fill", x * @field.cellSize + xOff, y * @field.cellSize + yOff, 
+							@field.cellSize, @field.cellSize
+			yOff += #shape * @field.cellSize
+			if p == "O" yOff += @field.cellSize
+
 return GameState
