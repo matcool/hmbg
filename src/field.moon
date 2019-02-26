@@ -41,7 +41,7 @@ class Field extends State
 					if y == 1
 						@setCell x, y, default
 					else
-						@setCell x, y, (@getCell x, y-1)
+						@setCell x, y, @getCell x, y - 1
 
 
 	update: (dt) =>
