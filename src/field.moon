@@ -34,7 +34,7 @@ class Field extends State
 					if y == @height + @hidden
 						@setCell x, y, default
 					else
-						@setCell x, y, (@getCell x, y+1)
+						@setCell x, y, @getCell x, y + 1
 		elseif dir == "down"
 			for y = yOff, 1, -1
 				for x = 1, @width
