@@ -28,7 +28,7 @@ class GameState extends State
 		for _, p in pairs @field.generator\getUpcoming(false, 5)
 			love.graphics.setColor Colors[@colors][p]
 			shape = Shapes[@rotationSystem][p]
-			xOff = love.graphics.getWidth! / 2 + @field.canvas\getWidth!
+			xOff = love.graphics.getWidth! / 2 + @field.canvas\getWidth! / 2
 			for y, row in ipairs shape
 				for x, cell in ipairs row
 					if cell == 1
