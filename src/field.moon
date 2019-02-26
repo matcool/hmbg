@@ -28,22 +28,21 @@ class Field extends State
 			if #row == @width
 				@move "down", y
 
-	move: (dir, yOff=@height+@hidden) =>
-		default = nil
+	move: (dir, yOff=@height + @hidden) =>
 		if dir == "up"
 			for y = 1, yOff
 				for x = 1, @width
 					if y == @height + @hidden
-						@setCell x, y, default
+						@setCell x, y, nil
 					else
-						@setCell x, y, (@getCell x, y+1)
+						@setCell x, y, @getCell x, y + 1
 		elseif dir == "down"
 			for y = yOff, 1, -1
 				for x = 1, @width
 					if y == 1
-						@setCell x, y, default
+						@setCell x, y, nil
 					else
-						@setCell x, y, (@getCell x, y-1)
+						@setCell x, y, @getCell x, y - 1
 
 
 	update: (dt) =>
