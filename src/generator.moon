@@ -15,7 +15,7 @@ class Generator
         if n == 1
             if remove
                 return table.remove @upcoming, 1
-            return @upcoming[1]
+            @upcoming[1]
         else
             pieces = {}
             for i = 1, n
@@ -23,6 +23,6 @@ class Generator
             if remove
                 for i = 1, n
                     table.remove @upcoming, 1
-            return pieces
+            pieces
 
 return Generator
