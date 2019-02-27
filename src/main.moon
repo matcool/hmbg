@@ -24,6 +24,9 @@ love.load = ->
 	Input\bind "z", "game_rotateleft"
 	Input\bind "x", "game_rotateright"
 
+	-- Seed the RNG so it isn't the same every time
+	math.randomseed os.time!
+
 	export state = GameState!
 
 love.update = (dt) ->
