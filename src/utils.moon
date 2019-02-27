@@ -9,9 +9,8 @@ utils.shuffle = (table) ->
     for i = #table, 1, -1
         r = math.random #table
         table[i], table[r] = table[r], table[i]
-    return table
+    table
 
-utils.copyTable = (table) ->
-    return [v for k, v in pairs(table)]
+utils.copyTable = (table) -> {k, v for k, v in pairs table}
 
 return utils
