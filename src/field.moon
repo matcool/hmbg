@@ -44,7 +44,7 @@ class Field extends State
 
 	newActive: (type=nil) =>
 		if type == nil
-			type = @generator\getUpcoming(true)
+			type = @generator\getUpcoming true
 		@active = Piece self, type
 		-- Center piece position, rounded to left
 		@active.x = (math.floor @width / 2) - math.floor @active.size / 2
