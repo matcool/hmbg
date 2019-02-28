@@ -23,6 +23,7 @@ love.load = ->
 	Input\bind "space", "game_harddrop"
 	Input\bind "z", "game_rotateleft"
 	Input\bind "x", "game_rotateright"
+	Input\bind "c", "game_hold"
 
 	-- Seed the RNG so it isn't the same every time
 	math.randomseed os.time!

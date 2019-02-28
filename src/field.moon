@@ -13,6 +13,8 @@ class Field extends State
 		@generator = Generator!
 		@newActive!
 		@canvas = love.graphics.newCanvas @width * @cellSize, @height * @cellSize
+		@held = nil
+		@hasHeld = false
 
 	getCell: (x, y) => @grid[((y - 1) * @width + (x - 1)) + 1]
 
@@ -52,8 +54,14 @@ class Field extends State
 	update: (dt) =>
 		@active\update dt
 		if @active.hasSet
+			@hasHeld = false
 			@clearLines!
 			@newActive!
+		if Input\pressed("game_hold") and not @hasHeld
+			@hasHeld = true
+			oldType = @active.type
+			@newActive @held
+			@held = oldType
 
 	draw: =>
 		love.graphics.setCanvas @canvas
