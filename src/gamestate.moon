@@ -21,4 +21,4 @@ class GameState extends State
 			love.graphics.getWidth! / 2 - @field.canvas\getWidth! / 2,
 			love.graphics.getHeight! / 2 - @field.canvas\getHeight! /2
 
-return GameState
+GameState

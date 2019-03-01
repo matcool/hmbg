@@ -4,4 +4,4 @@ class State
 	draw: =>
 	keyPressed: =>
 
-return State
+State

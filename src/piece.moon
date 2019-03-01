@@ -37,7 +37,7 @@ class Piece
 			@y += yOff
 			return true
 
-		return false
+		false
 
 	collides: (dir) =>
 		colXOff, colYOff = switch dir
@@ -122,4 +122,4 @@ class Piece
 
 		love.graphics.setCanvas!
 
-return Piece
+Piece

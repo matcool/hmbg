@@ -25,4 +25,4 @@ class Generator
                     table.remove @upcoming, 1
             pieces
 
-return Generator
+Generator
