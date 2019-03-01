@@ -39,4 +39,16 @@ class GameState extends State
 			yOff += #shape * @field.cellSize
 			if p == "O" yOff += @field.cellSize
 
+		-- Draw held piece
+		if @field.held != nil
+			love.graphics.setColor Colors[@colors][@field.held]
+			shape = Shapes[@rotationSystem][@field.held]
+			-- Adding two to shape width for some spacing between the field
+			xOff = love.graphics.getWidth! / 2 - @field.canvas\getWidth! / 2 - (#shape[1] + 2) * @field.cellSize
+			for y, row in ipairs shape
+				for x, cell in ipairs row
+					if cell == 1
+						love.graphics.rectangle "fill", x * @field.cellSize + xOff, y * @field.cellSize, 
+							@field.cellSize, @field.cellSize
+
 return GameState
