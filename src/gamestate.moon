@@ -10,7 +10,6 @@ class GameState extends State
 		@arrTimer = @arr / 1000
 		@setAfter = 1
 		@fallAfter = 1
-		-- TODO: come up with better name
 		@softDropAfter = 0.1
 		@field = Field self
 
