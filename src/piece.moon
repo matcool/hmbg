@@ -1,3 +1,5 @@
+Rotation = require "rotation"
+
 class Piece
 	new: (parent, type, x=1, y=1) =>
 		@parent = parent
@@ -10,10 +12,18 @@ class Piece
 		@setTimer = 0
 		@fallTimer = 0
 		@softDropTimer = 0
+		-- 0: Spawn state
+		-- 1: Clockwise from spawning
+		-- 2: 180 rotation from spawning
+		-- 3: Counter-clockwise from spawning
+		@rotation = 0
 
 	rotate: (dir) =>
 		-- Space between the square brackets because [[ is multiline comment in Lua
 		newShape = [ [0 for _ = 1, @size] for _ = 1, @size ]
+
+		prevRotation = @rotation
+		@rotation = (@rotation + if dir == "right" then 1 else -1) % 4
 
 		for y = 1, @size
 			for x = 1, @size
@@ -26,8 +36,21 @@ class Piece
 		oldShape = @shape
 		@shape = newShape
 
-		if @collides!
-			@shape = oldShape
+		wallkickData = Rotation[@parent.parent.rotationSystem][@type]
+		if wallkickData == nil
+			wallkickData = Rotation[@parent.parent.rotationSystem]["default"]
+
+		-- TODO: Explain this
+		testOffset = (2 * prevRotation + if dir == "right" then 0 else -1) % 8 + 1
+		for _, test in pairs wallkickData
+			offset = test[testOffset]
+			if not @collides nil, offset[1], offset[2]
+				@x += offset[1]
+				@y += offset[2]
+				return
+
+		@shape = oldShape
+		@rotation = prevRotation
 
 	move: (dir) =>
 		xOff, yOff = switch dir
@@ -42,12 +65,13 @@ class Piece
 
 		return false
 
-	collides: (dir) =>
-		colXOff, colYOff = switch dir
-			when "left" then -1, 0
-			when "right" then 1, 0
-			when "down" then 0, 1
-			else 0, 0
+	collides: (dir, colXOff, colYOff) =>
+		if colXOff == nil or colYOff == nil
+			colXOff, colYOff = switch dir
+				when "left" then -1, 0
+				when "right" then 1, 0
+				when "down" then 0, 1
+				else 0, 0
 
 		for x = @x + colXOff, @x + colXOff + @size - 1
 			for y = @y + colYOff, @y + colYOff + @size - 1
