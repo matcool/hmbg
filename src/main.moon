@@ -21,6 +21,7 @@ love.load = ->
 	Input\bind "right", "game_right"
 	Input\bind "down", "game_softdrop"
 	Input\bind "space", "game_harddrop"
+	Input\bind "up", "game_harddrop"
 	Input\bind "z", "game_rotateleft"
 	Input\bind "x", "game_rotateright"
 	Input\bind "c", "game_hold"
