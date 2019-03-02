@@ -5,7 +5,7 @@ class GameState extends State
 	new: =>
 		@rotationSystem = "SRS"
 		@colors = "SRS"
-		@das = 80
+		@das = 120
 		@arr = 0
 		@arrTimer = @arr / 1000
 		@setAfter = 1
@@ -22,6 +22,6 @@ class GameState extends State
 		love.graphics.setColor 1, 1, 1
 		love.graphics.draw @field.canvas,
 			love.graphics.getWidth! / 2 - @field.canvas\getWidth! / 2,
-			love.graphics.getHeight! / 2 - @field.canvas\getHeight! /2
+			love.graphics.getHeight! / 2 - @field.canvas\getHeight! / 2
 
-return GameState
+GameState

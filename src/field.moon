@@ -11,7 +11,7 @@ class Field extends State
 		@grid = [nil for _ = 1, @width * (@height + @hidden)]
 		@cellSize = 32
 		@generator = Generator!
-		@active = Piece self, @generator\getUpcoming(true)
+		@active = Piece self, @generator\getUpcoming true
 		-- Center piece position, rounded to left
 		@active.x = (math.floor @width / 2) - @active.size
 		-- Put one row of piece on lower hidden row
@@ -28,29 +28,28 @@ class Field extends State
 			if #row == @width
 				@move "down", y
 
-	move: (dir, yOff=@height+@hidden) =>
-		default = nil
+	move: (dir, yOff=@height + @hidden) =>
 		if dir == "up"
 			for y = 1, yOff
 				for x = 1, @width
 					if y == @height + @hidden
-						@setCell x, y, default
+						@setCell x, y, nil
 					else
-						@setCell x, y, (@getCell x, y+1)
+						@setCell x, y, @getCell x, y + 1
 		elseif dir == "down"
 			for y = yOff, 1, -1
 				for x = 1, @width
 					if y == 1
-						@setCell x, y, default
+						@setCell x, y, nil
 					else
-						@setCell x, y, (@getCell x, y-1)
+						@setCell x, y, @getCell x, y - 1
 
 
 	update: (dt) =>
 		@active\update dt
 		if @active.hasSet
 			@clearLines!
-			@active = Piece self, @generator\getUpcoming(true)
+			@active = Piece self, @generator\getUpcoming true
 			@active.x = (math.floor @width / 2) - @active.size
 			@active.y = @hidden
 
@@ -84,4 +83,4 @@ class Field extends State
 
 		@active\draw!
 
-return Field
+Field
