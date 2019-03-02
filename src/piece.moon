@@ -19,7 +19,7 @@ class Piece
 		@rotation = 0
 
 	rotate: (dir) =>
-		-- Space between the square brackets because [[ is multiline comment in Lua
+		-- Space between the square brackets because [[ is multiline string in Lua
 		newShape = [ [0 for _ = 1, @size] for _ = 1, @size ]
 
 		prevRotation = @rotation
@@ -63,7 +63,7 @@ class Piece
 			@y += yOff
 			return true
 
-		return false
+		false
 
 	collides: (dir, colXOff, colYOff) =>
 		if colXOff == nil or colYOff == nil
@@ -176,4 +176,4 @@ class Piece
 
 		love.graphics.setCanvas!
 
-return Piece
+Piece

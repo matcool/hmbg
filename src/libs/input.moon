@@ -57,4 +57,4 @@ class Input
 		for _, action in pairs @actions
 			action\update dt
 
-return Input
+Input
